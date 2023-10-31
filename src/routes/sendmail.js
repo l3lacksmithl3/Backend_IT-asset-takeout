@@ -481,7 +481,7 @@ router.post("/Approve_request", async function (req, res, next) {
     });
     try {
       console.log(
-        `Approve Extend : ${moment().format()} => email : ${req.body.approver}`
+        `Approve Takeout : ${moment().format()} => email : ${req.body.approver}`
       );
       // console.log(req.body);
 

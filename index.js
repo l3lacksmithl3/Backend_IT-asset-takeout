@@ -98,6 +98,15 @@ let master_code = require("./src/routes/master_code");
 app.use("/master_code", master_code);
 
 
+let AssetOfficePC = require("./src/routes/IT-asset-OfficePC");
+app.use("/AssetOfficePC", AssetOfficePC);
+
+let AssetMouser = require("./src/routes/IT-asset-Mouses");
+app.use("/AssetMouser", AssetMouser);
+
+let AssetKeypadKeyboard = require("./src/routes/IT-asset-KeypadKeyboard");
+app.use("/AssetKeypadKeyboard", AssetKeypadKeyboard);
+
 
 let AzureLogin = require("./src/routes/AzureLogin");
 app.use("/AzureLogin", AzureLogin);
