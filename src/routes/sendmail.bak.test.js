@@ -74,10 +74,6 @@ router.post("/Takeout_success", async function (req, res, next) {
       /!Link/g,
       `<a href='${url}ApplicationProgress?view_takeout=${req.body._id}'>IT asset takeout</a>`
     );
-    e.value.content = e.value.content.replace(
-      /Please confirm./g,
-      ``
-    );
 
     // res.json(e)
     let transporter = nodemailer.createTransport({
@@ -174,10 +170,6 @@ router.post("/Return_success", async function (req, res, next) {
     e.value.content = e.value.content.replace(
       /!Link/g,
       `<a href='${url}ApproveReturn?approve-return=${req.body._id}&return=${req.body.return_count}'>IT asset takeout</a>`
-    );
-    e.value.content = e.value.content.replace(
-      /Please confirm./g,
-      ``
     );
 
     // res.json(e)
@@ -279,10 +271,6 @@ router.post("/Extend_success", async function (req, res, next) {
     e.value.content = e.value.content.replace(
       /!Link/g,
       `<a href='${url}ApproveExtend?approve-extend=${req.body._id}&extend=${req.body.extend_count}'>IT asset takeout</a>`
-    );
-    e.value.content = e.value.content.replace(
-      /Please confirm./g,
-      ``
     );
 
     // res.json(e)
@@ -942,6 +930,7 @@ router.post("/Return_Force", async function (req, res, next) {
 cron.schedule("0 00 16 * * *", function () {
   intervalFunc();
 });
+
 
 
 

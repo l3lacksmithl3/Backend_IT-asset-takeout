@@ -74,10 +74,6 @@ router.post("/Takeout_success", async function (req, res, next) {
       /!Link/g,
       `<a href='${url}ApplicationProgress?view_takeout=${req.body._id}'>IT asset takeout</a>`
     );
-    e.value.content = e.value.content.replace(
-      /Please confirm./g,
-      ``
-    );
 
     // res.json(e)
     let transporter = nodemailer.createTransport({
@@ -106,7 +102,7 @@ router.post("/Takeout_success", async function (req, res, next) {
         from: "notifications@kyocera.co.th", // sender address
         // to: req.body.email, // list of receivers
         // to: "thaksin-b@kyocera.co.th", // list of receivers
-        to: 'thaksin-b@kyocera.co.th', // list of receivers
+        to: req.body.requester_mail, // list of receivers
         // to: user.email, // list of receivers
         cc: [],
         subject: e.value.subject, // Subject line
@@ -175,10 +171,6 @@ router.post("/Return_success", async function (req, res, next) {
       /!Link/g,
       `<a href='${url}ApproveReturn?approve-return=${req.body._id}&return=${req.body.return_count}'>IT asset takeout</a>`
     );
-    e.value.content = e.value.content.replace(
-      /Please confirm./g,
-      ``
-    );
 
     // res.json(e)
     let transporter = nodemailer.createTransport({
@@ -207,7 +199,7 @@ router.post("/Return_success", async function (req, res, next) {
         from: "notifications@kyocera.co.th", // sender address
         // to: req.body.email, // list of receivers
         // to: "thaksin-b@kyocera.co.th", // list of receivers
-        to: 'thaksin-b@kyocera.co.th', // list of receivers
+        to: req.body.requester_mail, // list of receivers
         // to: user.email, // list of receivers
         cc: [],
         subject: e.value.subject, // Subject line
@@ -280,10 +272,6 @@ router.post("/Extend_success", async function (req, res, next) {
       /!Link/g,
       `<a href='${url}ApproveExtend?approve-extend=${req.body._id}&extend=${req.body.extend_count}'>IT asset takeout</a>`
     );
-    e.value.content = e.value.content.replace(
-      /Please confirm./g,
-      ``
-    );
 
     // res.json(e)
     let transporter = nodemailer.createTransport({
@@ -312,7 +300,7 @@ router.post("/Extend_success", async function (req, res, next) {
         from: "notifications@kyocera.co.th", // sender address
         // to: req.body.email, // list of receivers
         // to: "thaksin-b@kyocera.co.th", // list of receivers
-        to: 'thaksin-b@kyocera.co.th', // list of receivers
+        to: req.body.requester_mail, // list of receivers
         // to: user.email, // list of receivers
         cc: [],
         subject: e.value.subject, // Subject line
@@ -411,7 +399,7 @@ router.post("/Approve_Extend", async function (req, res, next) {
           from: "notifications@kyocera.co.th", // sender address
           // to: req.body.email, // list of receivers
           // to: "thaksin-b@kyocera.co.th", // list of receivers
-          to: 'thaksin-b@kyocera.co.th', // list of receivers
+          to: email, // list of receivers
           // to: user.email, // list of receivers
           cc: [],
           subject: e.value.subject, // Subject line
@@ -516,7 +504,7 @@ router.post("/Approve_request", async function (req, res, next) {
           from: "notifications@kyocera.co.th", // sender address
           // to: req.body.email, // list of receivers
           // to: "thaksin-b@kyocera.co.th", // list of receivers
-          to: 'thaksin-b@kyocera.co.th', // list of receivers
+          to: email, // list of receivers
           // to: user.email, // list of receivers
           cc: [],
           subject: e.value.subject, // Subject line
@@ -620,7 +608,7 @@ router.post("/Approve_return", async function (req, res, next) {
           from: "notifications@kyocera.co.th", // sender address
           // to: req.body.email, // list of receivers
           // to: "thaksin-b@kyocera.co.th", // list of receivers
-          to: 'thaksin-b@kyocera.co.th', // list of receivers
+          to: email, // list of receivers
           // to: user.email, // list of receivers
           cc: [],
           subject: e.value.subject, // Subject line
@@ -734,7 +722,7 @@ router.post("/RejectM", async function (req, res, next) {
         from: "notifications@kyocera.co.th", // sender address
         // to: req.body.email, // list of receivers
         // to: "thaksin-b@kyocera.co.th", // list of receivers
-        to: 'thaksin-b@kyocera.co.th', // list of receivers
+        to: req.body.requester_mail, // list of receivers
 
         cc: [],
         subject: e.value.subject, // Subject line
@@ -837,7 +825,7 @@ router.post("/Mail_Reject_Extend", async function (req, res, next) {
         from: "notifications@kyocera.co.th", // sender address
         // to: req.body.email, // list of receivers
         // to: "thaksin-b@kyocera.co.th", // list of receivers
-        to: 'thaksin-b@kyocera.co.th', // list of receivers
+        to: req.body.requester_mail, // list of receivers
 
         cc: [],
         subject: e.value.subject, // Subject line
@@ -925,7 +913,7 @@ router.post("/Return_Force", async function (req, res, next) {
       info = await transporter.sendMail({
         from: "notifications@kyocera.co.th", // sender address
         // to: "thaksin-b@kyocera.co.th", // list of receivers
-        to: 'thaksin-b@kyocera.co.th', // list of receivers
+        to: e.takeout.email, // list of receivers
         cc: [],
         subject: `[IT asset takeout]`, // Subject line
         html: tableContent,
@@ -942,6 +930,7 @@ router.post("/Return_Force", async function (req, res, next) {
 cron.schedule("0 00 16 * * *", function () {
   intervalFunc();
 });
+
 
 
 
@@ -1056,7 +1045,7 @@ async function intervalFunc() {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }
-//TODO automail 4.00
+
 async function mail_check(mail, requester_email, data) {
   let header = "";
   if (data["Business Model"] == "IT asset return") {
@@ -1178,7 +1167,7 @@ async function mail_check(mail, requester_email, data) {
     let info;
     info = await transporter.sendMail({
       from: "notifications@kyocera.co.th", // sender address
-      to: 'thaksin-b@kyocera.co.th', // list of receivers
+      to: requester_email, // list of receivers
       cc: [],
       subject: mail.subject, // Subject line
       html: content,

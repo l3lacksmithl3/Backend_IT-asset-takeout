@@ -192,7 +192,7 @@ async function intervalFunc() {
       };
     });
 
-    console.log(asset);
+    // console.log(asset);
     asset = asset.filter((e) => e.return == false);
     asset = asset.filter((e) => [3, 0, -2].includes(e.remain));
 
