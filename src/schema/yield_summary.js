@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const List = new Schema(
     {
+      date: Date,
       // model: String,
       // value: [],
     },
@@ -10,6 +11,7 @@ const List = new Schema(
     { timestamps: true, versionKey: false, strict: false }
   );
 
-const ListModule = mongoose.model("master_section", List);
+const ListModule = mongoose.model("yield_by_Type", List);
 
 module.exports = ListModule;
+

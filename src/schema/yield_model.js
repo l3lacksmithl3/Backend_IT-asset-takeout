@@ -3,8 +3,7 @@ const Schema = mongoose.Schema;
 
 const List = new Schema(
     {
-      FromDate: Date,
-      ToDate : Date,
+      date: Date,
       // model: String,
       // value: [],
     },
@@ -12,7 +11,7 @@ const List = new Schema(
     { timestamps: true, versionKey: false, strict: false }
   );
 
-const ListModule = mongoose.model("IT-asset-Office", List);
+const ListModule = mongoose.model("yield_by_model", List);
 
 module.exports = ListModule;
 

@@ -2,13 +2,13 @@ let express = require("express");
 let router = express.Router();
 // ! USE --------------------- Set VARIABLE ------------------------------------------------------------------------
 
-const ControlID = require("../schema/ControlID");
+const yield_model = require("../schema/yield_summary");
 
 // ? ------------------------------------------------------ Master
 // * add
 router.post("/", function (req, res, next) {
   const payload = req.body;
-  ControlID.insertMany(payload, function (err, rs) {
+  yield_model.insertMany(payload, function (err, rs) {
     if (err) {
       res.json(err);
     } else {
@@ -17,21 +17,10 @@ router.post("/", function (req, res, next) {
   });
 });
 
-//  * find by id
-// router.get("/:id", function (req, res, next) {
-//   const { id } = req.params;
-//   ControlID.findById({ _id: id }, function (err, rs) {
-//     if (err) {
-//       res.json(err);
-//     } else {
-//       res.json(rs);
-//     }
-//   });
-// });
 
 // find all
 router.get("/", function (req, res, next) {
-  ControlID.find(function (err, rs) {
+  yield_model.find(function (err, rs) {
     if (err) {
       res.json(err);
     } else {
@@ -44,7 +33,7 @@ router.get("/", function (req, res, next) {
 router.put("/insert/:id", function (req, res, next) {
   const { id } = req.params;
   const payload = req.body;
-  ControlID.findByIdAndUpdate(
+  yield_model.findByIdAndUpdate(
     { _id: id },
     { $set: payload },
     function (err, rs) {
@@ -60,7 +49,7 @@ router.put("/insert/:id", function (req, res, next) {
 // * delete
 router.delete("/:id", function (req, res, next) {
   const { id } = req.params;
-  ControlID.findByIdAndDelete({ _id: id }, function (err, rs) {
+  yield_model.findByIdAndDelete({ _id: id }, function (err, rs) {
     if (err) {
       res.json(err);
     } else {
@@ -72,7 +61,7 @@ router.delete("/:id", function (req, res, next) {
 
 //getLastData
 router.get("/lastData/", function (req, res, next) {
-  ControlID
+  yield_model
     .aggregate([
       {
         $match: {},
@@ -91,7 +80,7 @@ router.get("/lastData/", function (req, res, next) {
 
 // deleteAll()
 router.delete("/", async function (req, res, next) {
-  let data = await ControlID.deleteMany({});
+  let data = await yield_model.deleteMany({});
   // console.log(data);
   res.json(data);
 });
@@ -99,7 +88,7 @@ router.delete("/", async function (req, res, next) {
 //find
 router.post("/getByCondition", function (req, res, next) {
   const payload = req.body;
-  ControlID.find(payload, function (err, rs) {
+  yield_model.find(payload, function (err, rs) {
     if (err) {
       res.json(err);
     } else {
@@ -110,13 +99,37 @@ router.post("/getByCondition", function (req, res, next) {
 
 router.post("/DelByCondition", function (req, res, next) {
   const payload = req.body;
-  ControlID.deleteMany(payload, function (err, rs) {
+  yield_model.deleteMany(payload, function (err, rs) {
     if (err) {
       res.json(err);
     } else {
       res.json(rs);
     }
   });
+});
+
+
+router.post("/getByMonth/", function (req, res, next) {
+  const payload = req.body;
+  // console.log(payload);
+  yield_model
+    .aggregate([
+      {
+        $match: {
+          date: {
+            $gte: moment(payload.date).startOf("month").toDate(),
+            $lte: moment(payload.date).endOf("month").toDate(),
+          },
+        },
+      },
+    ])
+    .exec((err, result) => {
+      if (err) {
+        res.json(err);
+      } else {
+        res.json(result);
+      }
+    });
 });
 
 

@@ -57,59 +57,17 @@ const server = app.listen(port, () => {
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------//
 
-let master_section = require("./src/routes/master_section");
-app.use("/master_section", master_section);
-
-let master_it = require("./src/routes/master_it");
-app.use("/master_it", master_it);
-
-let Approve_data = require("./src/routes/Approve_data");
-app.use("/Approve_data", Approve_data);
-
-let ControllD = require("./src/routes/ControllD");
-app.use("/ControllD", ControllD);
-
-let ITasset = require("./src/routes/IT-asset");
-app.use("/ITasset", ITasset);
-
-let mailer = require("./src/routes/sendmail");
-app.use("/Mailer", mailer);
-
-let email_form = require("./src/routes/email-form");
-app.use("/email_form", email_form);
-
-let blacklist = require("./src/routes/blacklist");
-app.use("/blacklist", blacklist);
-
-let section_head = require("./src/routes/section_head");
-app.use("/section_head", section_head);
-
-let master_reserve = require("./src/routes/master_reserve");
-app.use("/master_reserve", master_reserve);
-
-let auto_approve = require("./src/routes/auto_approve");
-app.use("/auto_approve", auto_approve);
+let yield_model = require("./src/routes/yield_model");
+app.use("/yield_model", yield_model);
 
 
-let master_organization = require("./src/routes/master_organization");
-app.use("/master_organization", master_organization);
-
-let master_code = require("./src/routes/master_code");
-app.use("/master_code", master_code);
+let yield_summary = require("./src/routes/yield_summary");
+app.use("/yield_summary", yield_summary);
 
 
-let AssetOfficePC = require("./src/routes/IT-asset-OfficePC");
-app.use("/AssetOfficePC", AssetOfficePC);
+let yield_bracket = require("./src/routes/yield_bracket");
+app.use("/yield_bracket", yield_bracket);
 
-let AssetMouser = require("./src/routes/IT-asset-Mouses");
-app.use("/AssetMouser", AssetMouser);
-
-let AssetKeypadKeyboard = require("./src/routes/IT-asset-KeypadKeyboard");
-app.use("/AssetKeypadKeyboard", AssetKeypadKeyboard);
-
-
-let AzureLogin = require("./src/routes/AzureLogin");
-app.use("/AzureLogin", AzureLogin);
 //---------------------------------------------------------------------------------------------------------------------------------------------------//
 
 
