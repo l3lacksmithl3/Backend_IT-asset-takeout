@@ -68,6 +68,17 @@ app.use("/yield_summary", yield_summary);
 let yield_bracket = require("./src/routes/yield_bracket");
 app.use("/yield_bracket", yield_bracket);
 
+
+let Import_data_macro = require("./src/routes/Import_data_macro");
+app.use("/Import_data_macro", Import_data_macro);
+
+
+let WIP = require("./src/routes/WIP");
+app.use("/WIP", WIP);
+
+
+let Input_Plan = require("./src/routes/Input_Plan");
+app.use("/Input_Plan", Input_Plan);
 //---------------------------------------------------------------------------------------------------------------------------------------------------//
 
 
